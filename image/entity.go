@@ -1,11 +1,11 @@
-package gallery
+package image
 
 import "time"
 
-type image struct {
+type Image struct {
 	ID        int
 	ProductID int
-	image     string
+	Image     string
 	IsDefault bool
 	Status    bool
 	CreatedAt time.Time

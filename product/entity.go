@@ -1,6 +1,9 @@
 package product
 
-import "time"
+import (
+	"skripsi-product-service/image"
+	"time"
+)
 
 type Product struct {
 	ID          int
@@ -12,4 +15,5 @@ type Product struct {
 	Status      bool
 	UpdatedAt   time.Time
 	CreatedAt   time.Time
+	Images      []image.Image
 }

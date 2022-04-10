@@ -17,7 +17,7 @@ func NewRepository(db *gorm.DB) *repository {
 
 func (r *repository) GetProducts() ([]Product, error) {
 	var products []Product
-	err := r.db.Find(&products).Error
+	err := r.db.Preload("Images").Find(&products).Error
 	return products, err
 }
 
