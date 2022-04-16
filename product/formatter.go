@@ -1,22 +1,24 @@
 package product
 
 import (
+	"skripsi-product-service/document"
 	"skripsi-product-service/image"
 	"time"
 )
 
 type ProductFormatter struct {
-	ID          int                    `json:"id"`
-	CaregoryID  int                    `json:"user_id"`
-	Name        string                 `json:"name"`
-	Slug        string                 `json:"slug"`
-	Description string                 `json:"description"`
-	Price       int                    `json:"price"`
-	Status      bool                   `json:"status"`
-	UpdatedAt   time.Time              `json:"updated_at"`
-	CreatedAt   time.Time              `json:"created_at"`
-	DeletedAt   time.Time              `json:"deleted_at"`
-	Images      []image.ImageFormatter `json:"images"`
+	ID          int                          `json:"id"`
+	CaregoryID  int                          `json:"user_id"`
+	Name        string                       `json:"name"`
+	Slug        string                       `json:"slug"`
+	Description string                       `json:"description"`
+	Price       int                          `json:"price"`
+	Status      bool                         `json:"status"`
+	UpdatedAt   time.Time                    `json:"updated_at"`
+	CreatedAt   time.Time                    `json:"created_at"`
+	DeletedAt   time.Time                    `json:"deleted_at"`
+	Images      []image.ImageFormatter       `json:"images"`
+	Documents   []document.DocumentFormatter `json:"documents"`
 }
 
 func FormatProduct(product Product) ProductFormatter {
@@ -40,6 +42,16 @@ func FormatProduct(product Product) ProductFormatter {
 		})
 	}
 	formatter.Images = images
+
+	documents := []document.DocumentFormatter{}
+	for _, doc := range product.Documents {
+		documents = append(documents, document.DocumentFormatter{
+			Name:         doc.Name,
+			DocumentLink: doc.DocumentLink,
+			Type:         doc.Type,
+		})
+	}
+	formatter.Documents = documents
 
 	return formatter
 }

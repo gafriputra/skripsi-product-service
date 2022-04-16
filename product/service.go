@@ -1,7 +1,7 @@
 package product
 
 type Service interface {
-	GetProducts() ([]Product, error)
+	GetProducts(limit int, offset int) ([]Product, error)
 	GetProduct(input GetProductDetailInput) (Product, error)
 }
 
@@ -13,8 +13,8 @@ func NewService(repository Repository) *service {
 	return &service{repository}
 }
 
-func (s *service) GetProducts() ([]Product, error) {
-	return s.repository.GetProducts()
+func (s *service) GetProducts(limit int, offset int) ([]Product, error) {
+	return s.repository.GetProducts(limit, offset)
 }
 
 func (s *service) GetProduct(input GetProductDetailInput) (Product, error) {
