@@ -1,8 +1,10 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"skripsi-product-service/handler"
+	"skripsi-product-service/helper"
 	"skripsi-product-service/product"
 
 	"github.com/gin-contrib/cors"
@@ -12,7 +14,8 @@ import (
 )
 
 func main() {
-	dsn := "host=localhost user=root password=gafriputra dbname=skripsi port=5432 sslmode=disable TimeZone=Asia/Jakarta"
+	dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable TimeZone=Asia/Jakarta",
+		helper.Env("DB_HOST"), helper.Env("DB_USER"), helper.Env("DB_PASSWORD"), helper.Env("DB_NAME"), helper.Env("DB_PORT"))
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 
 	if err != nil {
@@ -30,5 +33,5 @@ func main() {
 	api.GET("/", productHandler.GetProducts)
 	api.GET("/:slug", productHandler.GetProduct)
 
-	router.Run(":7001")
+	router.Run("0.0.0.0:3000")
 }
