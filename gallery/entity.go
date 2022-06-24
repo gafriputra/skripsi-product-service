@@ -1,8 +1,8 @@
-package image
+package gallery
 
 import "time"
 
-type Image struct {
+type Gallery struct {
 	ID        int
 	ProductID int
 	Image     string

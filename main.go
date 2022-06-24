@@ -28,10 +28,10 @@ func main() {
 
 	router := gin.Default()
 	router.Use(cors.Default())
-	api := router.Group("/api/v1/product")
+	api := router.Group("/api/v1/products")
 
 	api.GET("/", productHandler.GetProducts)
 	api.GET("/:slug", productHandler.GetProduct)
 
-	router.Run("0.0.0.0:3000")
+	router.Run("0.0.0.0:" + helper.Env("APP_PORT"))
 }

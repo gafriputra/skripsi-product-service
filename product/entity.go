@@ -2,7 +2,7 @@ package product
 
 import (
 	"skripsi-product-service/document"
-	"skripsi-product-service/image"
+	"skripsi-product-service/gallery"
 	"time"
 )
 
@@ -16,6 +16,6 @@ type Product struct {
 	Status      bool
 	UpdatedAt   time.Time
 	CreatedAt   time.Time
-	Images      []image.Image
+	Galleries   []gallery.Gallery
 	Documents   []document.Document
 }

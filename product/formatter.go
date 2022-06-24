@@ -2,7 +2,7 @@ package product
 
 import (
 	"skripsi-product-service/document"
-	"skripsi-product-service/image"
+	"skripsi-product-service/gallery"
 	"time"
 )
 
@@ -17,7 +17,7 @@ type ProductFormatter struct {
 	UpdatedAt   time.Time                    `json:"updated_at"`
 	CreatedAt   time.Time                    `json:"created_at"`
 	DeletedAt   time.Time                    `json:"deleted_at"`
-	Images      []image.ImageFormatter       `json:"images"`
+	Galleries   []gallery.GalleryFormatter   `json:"galleries"`
 	Documents   []document.DocumentFormatter `json:"documents"`
 }
 
@@ -34,14 +34,14 @@ func FormatProduct(product Product) ProductFormatter {
 		CreatedAt:   product.CreatedAt,
 	}
 
-	images := []image.ImageFormatter{}
-	for _, img := range product.Images {
-		images = append(images, image.ImageFormatter{
+	Galleries := []gallery.GalleryFormatter{}
+	for _, img := range product.Galleries {
+		Galleries = append(Galleries, gallery.GalleryFormatter{
 			Image:     img.Image,
 			IsDefault: img.IsDefault,
 		})
 	}
-	formatter.Images = images
+	formatter.Galleries = Galleries
 
 	documents := []document.DocumentFormatter{}
 	for _, doc := range product.Documents {
