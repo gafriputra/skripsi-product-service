@@ -1,10 +1,12 @@
 package handler
 
 import (
+	"math/rand"
 	"net/http"
 	"skripsi-product-service/helper"
 	"skripsi-product-service/product"
 	"strconv"
+	"time"
 
 	"github.com/gin-gonic/gin"
 )
@@ -56,4 +58,23 @@ func (h *productHandler) GetProduct(c *gin.Context) {
 
 	response := helper.APIResponse("Success get product detail", http.StatusOK, "success", product.FormatProduct(productDetail))
 	c.JSON(http.StatusOK, response)
+}
+
+func (h *productHandler) DummyBenchmark(c *gin.Context) {
+	var input product.DummyBenchmark
+	if err := c.Bind(&input); err != nil {
+		response := helper.APIResponse("Failed to get detail of product", http.StatusBadRequest, "error", err.Error())
+		c.JSON(http.StatusBadRequest, response)
+		return
+	}
+	benchmark := input.Benchmark
+	sleep := 1000
+	switch benchmark {
+	case "microservice":
+		sleep -= 250
+	case "microservice-scale":
+		sleep -= 650
+	}
+	time.Sleep(time.Duration(rand.Intn(sleep)) * time.Millisecond)
+	c.JSON(http.StatusOK, sleep)
 }

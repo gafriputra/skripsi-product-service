@@ -32,6 +32,7 @@ func main() {
 
 	api.GET("/", productHandler.GetProducts)
 	api.GET("/:slug", productHandler.GetProduct)
+	api.GET("/benchmark", productHandler.DummyBenchmark)
 
 	router.Run("0.0.0.0:" + helper.Env("APP_PORT"))
 }
