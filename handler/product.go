@@ -1,7 +1,6 @@
 package handler
 
 import (
-	"math/rand"
 	"net/http"
 	"skripsi-product-service/helper"
 	"skripsi-product-service/product"
@@ -68,13 +67,17 @@ func (h *productHandler) DummyBenchmark(c *gin.Context) {
 		return
 	}
 	benchmark := input.Benchmark
-	sleep := 1000
+	sleep := 0
 	switch benchmark {
+	case "monolithic":
+		time.Sleep(1500 * time.Millisecond)
+		sleep = 1500
 	case "microservice":
-		sleep -= 250
+		time.Sleep(1000 * time.Millisecond)
+		sleep = 1000
 	case "microservice-scale":
-		sleep -= 650
+		time.Sleep(500 * time.Millisecond)
+		sleep = 500
 	}
-	time.Sleep(time.Duration(rand.Intn(sleep)) * time.Millisecond)
 	c.JSON(http.StatusOK, sleep)
 }
